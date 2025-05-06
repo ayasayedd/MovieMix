@@ -1,0 +1,235 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=BenchNine&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'BenchNine', sans-serif;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1a1a1a;
+  padding: 10px 20px;
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.hamburger {
+  cursor: pointer;
+  margin-right: 15px;
+}
+
+.hamburger span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: white;
+  margin: 4px 0;
+  transition: 0.3s;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  width: 40px;
+  height: auto;
+  margin-right: 10px;
+}
+
+.website-name {
+  font-weight: bold;
+  font-size: 29px;
+  color: #ccc;
+  letter-spacing: 2px;
+  margin-left :-19px ;
+  margin-bottom: 6px;
+  font-family: 'BenchNine', sans-serif;
+  
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.input-box {
+    position: relative;
+  }
+  
+  .input-box::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(to right, rgb(170, 14, 14), rgba(255, 0, 0, 0));
+    border-radius: 52px; /* Slightly larger to account for border thickness */
+    z-index: -1;
+  }
+  
+  .input-box::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: black; /* Match the body background */
+    border-radius: 50px;
+    z-index: -1;
+  }
+.input-box::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(to right, rgb(170, 14, 14), rgba(255, 0, 0, 0));
+  border-radius: 27px;
+  z-index: -1;
+}
+
+.input-box::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #1a1a1a;
+  border-radius: 25px;
+  z-index: -1;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 10px 50px 10px 20px;
+    background: transparent;
+    border: 2px solid transparent; /* Reserve space for the pseudo-border */
+    outline: none;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 50px;
+    position: relative;
+    z-index: 1; /* Ensure input is above pseudo-elements */
+  }
+.input-box input::placeholder {
+  color: #888;
+  font-weight: 400;
+}
+
+.input-box i {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+  font-size: 18px;
+  z-index: 1;
+}
+
+.heart-btn-container {
+  width: 40px;
+  height: 40px;
+}
+
+.heart-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #ccc; /* لون القلب الافتراضي */
+    transition: color 0.3s;
+}
+
+.heart-btn.favorited {
+    color: rgb(212, 36, 36); /* لون القلب عند الضغط */
+}
+
+.heart-btn:hover {
+    color: rgb(226, 44, 44);
+    text-shadow: 0 0 10px red, 0 0 20px red;
+}
+
+.auth-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.auth-btn {
+  cursor: pointer;
+  text-decoration: none;
+  color: #fff;
+  font-size: 16px;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 25px;
+  background: linear-gradient(to right, rgb(170, 14, 14), rgba(255, 0, 0, 0));
+  font-weight: bold;
+  letter-spacing: 1px;
+  transition: transform 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+}
+
+.auth-btn:hover {
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 15px;
+  }
+
+  .logo img {
+    width: 26px;
+    margin-right: 5px;
+    
+  }
+
+  .website-name {
+display: none;  }
+
+  .input-box input {
+    width: 120px;
+    padding: 6px 25px 6px 10px;
+    font-size: 14px;
+  }
+
+  .input-box i {
+    right: 8px;
+    font-size: 16px;
+  }
+
+  .heart-btn-container {
+    width: 35px;
+    height: 35px;
+  }
+
+  .heart-btn {
+    font-size: 18px;
+  }
+
+  .auth-btn {
+    font-size: 10px;
+    padding: 6px 15px;
+  }
+}
