@@ -1,26 +1,51 @@
-import React from "react";
-import Navbar from "../components/navbar";
-import ButtonUp from "../components/bottonup";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useTMDB } from "../hooks/useTMDB";
+import { MovieCard } from "../components/Movie"; // Using named import
 import "../css/CategoryPage.css";
 
-const CategoryPage = ({ title }) => {
+const CategoryPage = () => {
+  const { genreId } = useParams();
+  const [movies, setMovies] = useState([]);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const { getMoviesByGenre } = useTMDB();
+
+  useEffect(() => {
+    const fetchMovies = async () => {
+      setLoading(true);
+      try {
+        const data = await getMoviesByGenre(genreId, page);
+        setMovies((prev) => [...prev, ...data.results]);
+      } catch (error) {
+        console.error("Error fetching movies:", error);
+      }
+      setLoading(false);
+    };
+
+    fetchMovies();
+  }, [genreId, page]);
+
+  const handleLoadMore = () => {
+    setPage((prev) => prev + 1);
+  };
+
   return (
     <div className="category-page">
-      <Navbar />
       <div className="category-content">
-        <h1>{title}</h1>
+        <h1>Movies</h1>
         <div className="movie-grid">
-          {placeholderMovies.map((movie) => (
-            <div key={movie.id} className="movie-card">
-              <div className="movie-image">
-                <img src={movie.image} alt={movie.title} />
-              </div>
-              <div className="movie-title">{movie.title}</div>
-            </div>
+          {movies.map((movie) => (
+            <MovieCard key={movie.id} movie={movie} />
           ))}
         </div>
+        {!loading && (
+          <button className="load-more-btn" onClick={handleLoadMore}>
+            Load More
+          </button>
+        )}
+        {loading && <div className="loading">Loading...</div>}
       </div>
-      <ButtonUp />
     </div>
   );
 };

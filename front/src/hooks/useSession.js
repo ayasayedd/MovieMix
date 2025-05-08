@@ -24,6 +24,7 @@ export const useSession = () => {
     try {
       const data = await loginAPI(email, password);
       setUser(data.user);
+      window.location.href = '/'; // Redirect to home page
       return data;
     } catch (err) {
       throw err;

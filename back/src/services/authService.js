@@ -27,7 +27,15 @@ const login = async (email, password) => {
     throw new Error("Invalid password");
   }
   const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
-  return { token, user };
+  
+  // Only return necessary user data
+  const userData = {
+    _id: user._id,
+    username: user.username,
+    email: user.email
+  };
+  
+  return { token, user: userData };
 };
 
 const me = async (userId) => {

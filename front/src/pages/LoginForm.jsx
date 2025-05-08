@@ -28,7 +28,7 @@ export default function LoginForm() {
 
     try {
       await signIn(formData.email, formData.password);
-      window.location.reload();
+      // Navigation is now handled in useSession
     } catch (err) {
       setError(err.message);
     } finally {

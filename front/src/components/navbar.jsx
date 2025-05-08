@@ -4,12 +4,33 @@ import logoImage from "../assets/M logo 1.png";
 import SearchComponent from "./searchComponent";
 import { Link } from "react-router-dom";
 import { useSession } from "../hooks/useSession";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FavoriteMovie from "./FavoriteMovie";
+import { getAllFavorites } from "../utils/favoriteMovies";
 
 const Navbar = () => {
   const [showFavoriteMovies, setShowFavoriteMovies] = useState(false);
+  const [favorites, setFavorites] = useState([]);
   const { user } = useSession();
+
+  const fetchFavorites = async () => {
+    if (user) {
+      try {
+        const favoritesList = await getAllFavorites();
+        setFavorites(favoritesList);
+      } catch (error) {
+        console.error("Error fetching favorites:", error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    fetchFavorites();
+  }, [user]);
+
+  const handleRemoveFavorite = (tmdbId) => {
+    setFavorites(favorites.filter((id) => id !== tmdbId));
+  };
 
   const handleSearch = (result) => {
     if (result.viewAll) {
@@ -57,9 +78,19 @@ const Navbar = () => {
                     <i className="fa-solid fa-xmark" />
                   </button>
                   <div className="favorite_movies_card flex flex-col align-center gap-4">
-                    {user.favorites.map((movie) => (
-                      <FavoriteMovie key={movie} tmdbId={movie} />
-                    ))}
+                    {favorites.length === 0 ? (
+                      <h3 className="empty-favorites">You don't have any favorite movies</h3>
+                    ) : (
+                      favorites.map((movieId) => (
+                        <FavoriteMovie 
+                          key={movieId} 
+                          tmdbId={movieId} 
+                          onRemove={() => {
+                            fetchFavorites(); // Refresh the list after removal
+                          }}
+                        />
+                      ))
+                    )}
                   </div>
                 </div>
               )}

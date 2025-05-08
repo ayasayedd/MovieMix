@@ -28,11 +28,23 @@ const GENRE_IDS = {
 import { Link } from "react-router-dom";
 import { addToFavorites } from "../utils/favoriteMovies";
 
-const MovieCard = ({ movie }) => {
-  const handelAddToFavorites = async () => {
+export const MovieCard = ({ movie }) => {  // Add 'export' here
+  const handelAddToFavorites = async (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     try {
       await addToFavorites(movie.id);
+      // Find and call the fetchFavorites function from navbar
+      const navbarElement = document.querySelector('.navbar');
+      if (navbarElement) {
+        const navbarComponent = navbarElement.__react_instance;
+        if (navbarComponent && navbarComponent.fetchFavorites) {
+          navbarComponent.fetchFavorites();
+        }
+      }
+      toast.success('Movie added to favorites!');
     } catch (error) {
+      toast.error(error.message || 'Error adding to favorites');
       console.error("Error adding to favorites:", error);
     }
   };
@@ -96,7 +108,7 @@ const MovieCard = ({ movie }) => {
 };
 
 // MovieSection component for each genre section
-const MovieSection = ({ title, movies, isLoading, error }) => {
+export const MovieSection = ({ title, movies, isLoading, error, genreId }) => {
   if (isLoading) {
     return (
       <div className="movie-section">
@@ -130,9 +142,11 @@ const MovieSection = ({ title, movies, isLoading, error }) => {
     <div className="movie-section">
       <div className="section-header">
         <h2 className="section-title">{title}</h2>
-        <a href="#" className="view-all">
-          View All <i className="fa-solid fa-chevron-right"></i>
-        </a>
+        {genreId && (
+          <Link to={`/genre/${genreId}`} className="view-all">
+            View All <i className="fa-solid fa-chevron-right"></i>
+          </Link>
+        )}
       </div>
       <div className="movie-grid">
         {movies.map((movie) => (
@@ -238,6 +252,7 @@ const Movie = () => {
         movies={actionMovies.slice(0, 8)}
         isLoading={isLoading && actionMovies.length === 0}
         error={error}
+        genreId={GENRE_IDS.ACTION}
       />
 
       <MovieSection
@@ -245,6 +260,7 @@ const Movie = () => {
         movies={comedyMovies.slice(0, 8)}
         isLoading={isLoading && comedyMovies.length === 0}
         error={error}
+        genreId={GENRE_IDS.COMEDY}
       />
 
       <MovieSection
@@ -252,6 +268,7 @@ const Movie = () => {
         movies={horrorMovies.slice(0, 8)}
         isLoading={isLoading && horrorMovies.length === 0}
         error={error}
+        genreId={GENRE_IDS.HORROR}
       />
 
       <MovieSection
@@ -259,6 +276,7 @@ const Movie = () => {
         movies={romanceMovies.slice(0, 8)}
         isLoading={isLoading && romanceMovies.length === 0}
         error={error}
+        genreId={GENRE_IDS.ROMANCE}
       />
     </div>
   );

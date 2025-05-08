@@ -28,6 +28,24 @@ function SliderItem({ movie }) {
 
   const truncatedOverview = truncateOverview(overview);
 
+  const { getMovieDetails } = useTMDB();
+
+  const handleWatchNow = async () => {
+    try {
+      const movieDetails = await getMovieDetails(movie.id);
+      if (movieDetails?.imdb_id) {
+        window.open(`https://www.imdb.com/title/${movieDetails.imdb_id}`, '_blank');
+      }
+    } catch (error) {
+      console.error('Error fetching movie details:', error);
+    }
+  };
+
+  const handleDetails = () => {
+    // Navigate to movie details page
+    window.location.href = `/movie/${movie.id}`;
+  };
+
   return (
     <div
       className="item"
@@ -37,11 +55,11 @@ function SliderItem({ movie }) {
         <div className="name">{title}</div>
         <div className="title">{truncatedOverview}</div>
         <div className="buttons">
-          <button className="slider-btn play-btn">
+          <button className="slider-btn play-btn" onClick={handleWatchNow}>
             <i className="fa-solid fa-play" />
             <span>Watch Now</span>
           </button>
-          <button className="slider-btn info-btn">
+          <button className="slider-btn info-btn" onClick={handleDetails}>
             <i className="fa-solid fa-info-circle" />
             <span>Details</span>
           </button>

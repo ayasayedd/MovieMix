@@ -268,3 +268,11 @@
     padding: 6px 15px;
   }
 }
+
+.empty-favorites {
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+  font-size: 1.2rem;
+  opacity: 0.8;
+}

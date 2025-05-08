@@ -3,7 +3,7 @@ import { useTMDB } from "../hooks/useTMDB";
 import { removeFromFavorites } from "../utils/favoriteMovies";
 import { toast } from "react-toastify";
 
-export default function FavoriteMovie({ tmdbId }) {
+export default function FavoriteMovie({ tmdbId, onRemove }) {
   const { getMovieDetails } = useTMDB();
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -11,6 +11,8 @@ export default function FavoriteMovie({ tmdbId }) {
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
+      if (!tmdbId) return;
+
       try {
         setLoading(true);
         const movieData = await getMovieDetails(tmdbId);
@@ -23,16 +25,19 @@ export default function FavoriteMovie({ tmdbId }) {
         setLoading(false);
       }
     };
+
     fetchMovieDetails();
-  }, [tmdbId]);
+  }, [tmdbId, getMovieDetails]);
 
   const handleRemoveFromFavorites = async () => {
     try {
       setLoading(true);
       await removeFromFavorites(tmdbId);
       toast.success("Movie removed from favorites");
-      // Refresh the parent component to update the favorites list
-      window.location.reload();
+      // Call onRemove immediately after successful removal
+      if (onRemove) {
+        onRemove(tmdbId);
+      }
     } catch (err) {
       setError(err.message);
       toast.error(`Error removing movie: ${err.message}`);
@@ -69,28 +74,40 @@ export default function FavoriteMovie({ tmdbId }) {
     : "https://via.placeholder.com/1920x800?text=No+Image";
 
   return (
-    <div className="favorite_movie_card">
-      <img
-        title={movie?.title || "Movie image"}
-        src={moviePosterImage}
-        alt={movie?.title || "Movie image"}
-        width={50}
-        height={50}
-        onError={(e) => {
-          e.target.src = "https://via.placeholder.com/1920x800?text=No+Image";
-        }}
-      />
-      <div className="flex align-center gap-4">
-        <h3>{movie?.title}</h3>
-        <button
-          className="slider-btn play-btn"
-          title="Remove from favorites"
-          onClick={handleRemoveFromFavorites}
-          disabled={loading}
-        >
-          <i className="fa-solid fa-trash" />
-        </button>
+    <div className="favorite_movie_card" style={{ width: '300px', height: '70px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 10px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <img
+          title={movie?.title || "Movie image"}
+          src={moviePosterImage}
+          alt={movie?.title || "Movie image"}
+          width={50}
+          height={70}
+          style={{ objectFit: 'cover', borderRadius: '4px' }}
+          onError={(e) => {
+            e.target.src = "https://via.placeholder.com/1920x800?text=No+Image";
+          }}
+        />
+        <h3 style={{ maxWidth: '180px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+          {movie?.title}
+        </h3>
       </div>
+      <button
+        className="remove-favorite-btn"
+        title="Remove from favorites"
+        onClick={handleRemoveFromFavorites}
+        disabled={loading}
+        style={{
+          background: 'transparent',
+          border: 'none',
+          color: '#ff0000',
+          cursor: 'pointer',
+          padding: '8px',
+          borderRadius: '50%',
+          transition: 'all 0.3s ease'
+        }}
+      >
+        <i className="fa-solid fa-trash" />
+      </button>
     </div>
   );
 }

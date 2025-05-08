@@ -3,6 +3,9 @@ import "../css/movie_details.css";
 import { useTMDB } from "../hooks/useTMDB";
 import { useParams } from "react-router-dom";
 import ReactPlayer from "react-player";
+import { addToFavorites } from "../utils/favoriteMovies";
+import { toast } from "react-toastify";
+
 export default function MovieDetails() {
   const { getMovieDetails } = useTMDB();
   const [movieDetails, setMovieDetails] = useState(null);
@@ -39,11 +42,41 @@ export default function MovieDetails() {
 
   const truncatedOverview = truncateOverview(movieDetails?.overview);
 
+  const handleAddToFavorites = async () => {
+    try {
+      await addToFavorites(id);
+      // Find and call the fetchFavorites function from navbar
+      const navbarElement = document.querySelector('.navbar');
+      if (navbarElement) {
+        const navbarComponent = navbarElement.__react_instance;
+        if (navbarComponent && navbarComponent.fetchFavorites) {
+          navbarComponent.fetchFavorites();
+        }
+      }
+      toast.success('Movie added to favorites!');
+    } catch (error) {
+      toast.error(error.message || 'Error adding to favorites');
+      console.error("Error adding to favorites:", error);
+    }
+  };
+
   return (
     <main className="detail_container">
       <div className="movie-header">
-        <div className="movie-title">
-          <h2>{movieDetails?.title}</h2>
+        <div className="movie-title-container">
+          <div className="movie-title">
+            <h2>{movieDetails?.title}</h2>
+            <div className="buttons">
+              <button className="slider-btn play-btn" onClick={() => window.open(`https://www.imdb.com/title/${movieDetails?.imdb_id}`, '_blank')}>
+                <i className="fa-solid fa-play" />
+                <span>Watch Now</span>
+              </button>
+              <button className="slider-btn info-btn" onClick={handleAddToFavorites}>
+                <i className="fa-solid fa-heart" />
+                <span>Add to Favorites</span>
+              </button>
+            </div>
+          </div>
         </div>
         <img
           src={backgroundImage}
