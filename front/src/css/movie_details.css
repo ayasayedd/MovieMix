@@ -1,0 +1,246 @@
+:root {
+  --primary-color: #ffffff;
+  --background-color: #000000;
+  --transition-duration: 0.3s;
+  --border-radius: 10px;
+  --gap: 20px;
+  --margin: 10px;
+  --font-size-h2: 1.5rem;
+  --font-size-p: 1.2rem;
+}
+
+.detail_container {
+  margin-top: 130px;
+  width: 100%;
+  overflow: hidden;
+}
+.movie-header {
+  width: 100%;
+}
+.movie-title {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.action-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  gap: var(--gap);
+  padding: var(--margin);
+}
+
+.button-container {
+  width: 50%;
+  height: 100%;
+  background-color: var(--background-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.movie-posters {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: var(--gap);
+  margin-top: var(--gap);
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.movie-info {
+  width: 100%;
+  height: 50%;
+  background-color: var(--background-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--gap);
+  margin: var(--margin);
+  padding: var(--margin);
+}
+
+.info-section {
+  text-align: left;
+}
+
+.mov.info-section {
+  background: rgba(0, 0, 0, 0.8);
+  padding: var(--margin);
+  border-radius: var(--border-radius);
+}
+
+.info-group {
+  margin-bottom: var(--margin);
+}
+
+.info-group:last-child {
+  margin-bottom: 0;
+}
+
+.info-group h2 {
+  font-size: var(--font-size-h2);
+  color: var(--accent-color);
+  margin-bottom: var(--margin);
+  padding-bottom: 5px;
+  border-bottom: 2px solid var(--accent-color);
+}
+
+.info-group p {
+  font-size: var(--font-size-p);
+  line-height: 1.6;
+  margin-bottom: var(--margin);
+}
+
+.movie-posters img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--border-radius);
+  transition: transform var(--transition-duration) ease;
+}
+
+h2 {
+  font-family: "Roboto Slab", serif;
+  font-weight: 400;
+  font-size: var(--font-size-h2);
+  line-height: 1.5;
+  color: var(--primary-color);
+  margin: var(--margin);
+}
+
+p {
+  font-family: "Abel", sans-serif;
+  font-weight: 400;
+  font-size: var(--font-size-p);
+  line-height: 1.6;
+  margin-bottom: var(--margin);
+}
+
+.actor-name {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.actor-role {
+  font-size: 0.9rem;
+  color: var(--secondary-color);
+}
+
+.cast-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--gap);
+  margin-top: var(--margin);
+}
+
+.cast-member {
+  text-align: center;
+  transition: transform var(--transition-duration) ease;
+}
+
+.cast-member:hover {
+  transform: translateY(-5px);
+}
+
+.cast-image {
+  width: 150px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: var(--border-radius);
+  margin-bottom: var(--margin);
+}
+
+.cast-member p {
+  font-size: 0.9rem;
+  margin: 5px 0;
+}
+
+.movie-posters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--gap);
+  margin-top: var(--margin);
+}
+
+.poster-image {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: var(--border-radius);
+  transition: transform var(--transition-duration) ease;
+}
+
+.poster-image:hover {
+  transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .movie-info {
+    grid-template-columns: 1fr;
+  }
+
+  .movie-header {
+    height: 40vh;
+  }
+
+  .movie-title h2 {
+    font-size: 2rem;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+
+  .button-container {
+    max-width: 100%;
+  }
+
+  .cast-container {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  }
+
+  .cast-image {
+    width: 120px;
+    height: 160px;
+  }
+
+  .movie-posters {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+
+  .poster-image {
+    height: 200px;
+  }
+}
+@media (max-width: 768px) {
+  .action-buttons {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .movie-posters img {
+    width: 100%;
+  }
+
+  .movie-info {
+    flex-direction: column;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+}

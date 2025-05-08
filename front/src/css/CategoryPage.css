@@ -1,0 +1,83 @@
+.category-page {
+  background-color: #121212;
+  min-height: 100vh;
+  color: #fff;
+  padding: 80px 30px 20px; /* Padding to account for fixed navbar */
+}
+
+.category-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.category-content h1 {
+  font-size: 32px;
+  color: rgb(164, 148, 148);
+  text-transform: uppercase;
+  font-weight: 200;
+  letter-spacing: 1px;
+  font-style: italic;
+  margin-bottom: 20px;
+}
+
+.movie-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.movie-card {
+  transition: transform 0.3s ease;
+}
+
+.movie-card:hover {
+  transform: scale(1.1);
+}
+
+.movie-image {
+  width: 100%;
+  height: 260px; /* Matches Movie.jsx card height */
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.movie-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.movie-title {
+  font-size: 16px;
+  color: #fff;
+  margin-top: 10px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%; /* Ensures title doesn’t exceed image width */
+}
+
+@media (max-width: 768px) {
+  .category-page {
+    padding: 70px 15px 15px;
+  }
+
+  .category-content h1 {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+
+  .movie-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+  }
+
+  .movie-image {
+    height: 200px; /* Smaller cards on mobile */
+  }
+
+  .movie-title {
+    font-size: 14px;
+  }
+}

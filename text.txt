@@ -1,0 +1,2 @@
+1. login error
+2. favortie from api not useSession.js

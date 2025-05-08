@@ -1,17 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=BenchNine&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=BenchNine&display=swap");
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'BenchNine', sans-serif;
+  font-family: "BenchNine", sans-serif;
 }
 
 .navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   background-color: #1a1a1a;
   padding: 10px 20px;
   color: white;
@@ -21,6 +18,12 @@
   width: 100%;
   z-index: 1000;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.navbar-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .hamburger {
@@ -37,11 +40,14 @@
   transition: 0.3s;
 }
 
-.left {
+.brand-section {
   display: flex;
   align-items: center;
 }
 
+.logo {
+  text-decoration: none;
+}
 .logo img {
   width: 40px;
   height: auto;
@@ -53,10 +59,9 @@
   font-size: 29px;
   color: #ccc;
   letter-spacing: 2px;
-  margin-left :-19px ;
-  margin-bottom: 6px;
-  font-family: 'BenchNine', sans-serif;
-  
+  margin-left: -19px;
+
+  font-family: "BenchNine", sans-serif;
 }
 
 .right {
@@ -66,34 +71,34 @@
 }
 
 .input-box {
-    position: relative;
-  }
-  
-  .input-box::before {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: linear-gradient(to right, rgb(170, 14, 14), rgba(255, 0, 0, 0));
-    border-radius: 52px; /* Slightly larger to account for border thickness */
-    z-index: -1;
-  }
-  
-  .input-box::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: black; /* Match the body background */
-    border-radius: 50px;
-    z-index: -1;
-  }
+  position: relative;
+}
+
 .input-box::before {
-  content: '';
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(to right, rgb(170, 14, 14), rgba(255, 0, 0, 0));
+  border-radius: 52px; /* Slightly larger to account for border thickness */
+  z-index: -1;
+}
+
+.input-box::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: black; /* Match the body background */
+  border-radius: 50px;
+  z-index: -1;
+}
+.input-box::before {
+  content: "";
   position: absolute;
   top: -2px;
   left: -2px;
@@ -105,7 +110,7 @@
 }
 
 .input-box::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -117,18 +122,18 @@
 }
 
 .input-box input {
-    width: 100%;
-    padding: 10px 50px 10px 20px;
-    background: transparent;
-    border: 2px solid transparent; /* Reserve space for the pseudo-border */
-    outline: none;
-    color: #fff;
-    font-size: 16px;
-    font-weight: 500;
-    border-radius: 50px;
-    position: relative;
-    z-index: 1; /* Ensure input is above pseudo-elements */
-  }
+  width: 100%;
+  padding: 10px 50px 10px 20px;
+  background: transparent;
+  border: 2px solid transparent; /* Reserve space for the pseudo-border */
+  outline: none;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 50px;
+  position: relative;
+  z-index: 1; /* Ensure input is above pseudo-elements */
+}
 .input-box input::placeholder {
   color: #888;
   font-weight: 400;
@@ -150,26 +155,31 @@
 }
 
 .heart-btn {
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    color: #ccc; /* لون القلب الافتراضي */
-    transition: color 0.3s;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #ccc; /* لون القلب الافتراضي */
+  transition: color 0.3s;
 }
 
 .heart-btn.favorited {
-    color: rgb(212, 36, 36); /* لون القلب عند الضغط */
+  color: rgb(212, 36, 36); /* لون القلب عند الضغط */
 }
 
 .heart-btn:hover {
-    color: rgb(226, 44, 44);
-    text-shadow: 0 0 10px red, 0 0 20px red;
+  color: rgb(226, 44, 44);
+  text-shadow: 0 0 10px red, 0 0 20px red;
+}
+
+.nav-controls {
+  display: flex;
+  align-items: center;
 }
 
 .auth-buttons {
   display: flex;
-  gap: 10px;
+  margin-left: 20px;
 }
 
 .auth-btn {
@@ -194,6 +204,31 @@
   transform: scale(1.05);
 }
 
+.favorite_movies_cards {
+  position: absolute;
+  top: 130px;
+  right: 50px;
+  display: flex;
+  flex-direction: column;
+  background-color: #1a1a1a;
+  padding: 5px 20px;
+  border-radius: 20px;
+}
+.drop_down_close_btn {
+  align-self: flex-end;
+  justify-self: flex-end;
+  font-size: 16px;
+  cursor: pointer;
+  color: #fff;
+  border: none;
+  padding: 5px;
+  border-radius: 50%;
+}
+.favorite_movie_card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 @media (max-width: 768px) {
   .navbar {
     padding: 15px;
@@ -202,11 +237,11 @@
   .logo img {
     width: 26px;
     margin-right: 5px;
-    
   }
 
   .website-name {
-display: none;  }
+    display: none;
+  }
 
   .input-box input {
     width: 120px;
